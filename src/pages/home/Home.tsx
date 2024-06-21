@@ -11,7 +11,6 @@ import {
   chartBoxUser,
 } from "../../data";
 import "./home.scss";
-import { Pie } from "recharts";
 import BigChartBox from "../../components/bigChartBox/BigChartBox";
 
 const Home = () => {
