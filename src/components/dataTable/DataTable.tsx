@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 type Props = {
   columns: GridColDef[];
   rows: object[];
-  slug: string;
+  slug: string[];
 };
 
 const DataTable = (props: Props) => {

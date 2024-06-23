@@ -4,7 +4,7 @@ import "./add.scss";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type Props = {
-  slug: string;
+  slug: string[];
   columns: GridColDef[];
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
