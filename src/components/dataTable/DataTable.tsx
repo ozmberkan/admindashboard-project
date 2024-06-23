@@ -1,6 +1,7 @@
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import "./datatable.scss";
 import { Link } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   columns: GridColDef[];
@@ -9,10 +10,20 @@ type Props = {
 };
 
 const DataTable = (props: Props) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (id: number) => {
+      return fetch(`http://localhost:5174/api/${props.slug}/${id}`, {
+        method: "delete",
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries([`all${props.slug}`]);
+    },
+  });
   const handleDelete = (id: number) => {
-    //delete the item
-    
-    console.log(id + "has been deleted");
+    mutation.mutate(id);
   };
 
   const actionColumn: GridColDef = {
@@ -22,7 +33,7 @@ const DataTable = (props: Props) => {
     renderCell: (params) => {
       return (
         <div className="action">
-          <Link to={`${props.slug}/${params.row.id}`}>
+          <Link to={`/${props.slug}/${params.row.id}`}>
             <img src="/view.svg" alt="" />
           </Link>
           <div className="delete" onClick={() => handleDelete(params.row.id)}>
